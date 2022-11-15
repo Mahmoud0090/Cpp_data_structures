@@ -64,10 +64,11 @@ public:
           return;
        }
        
-       for(int i = idx ; i<size ; i++)
+       for(int i = idx ; i<=size ; i++)
        {
            arr[i] = arr[i + 1];
        }
+       --size;
    }
    
    void Right_Rotate(int times)
@@ -116,19 +117,29 @@ int main()
     v.push_back(7);
     v.push_back(8);
     v.push_back(9);
-  
+    v.push_back(10);
+    v.push_back(11);
+    v.push_back(12);
+    v.push_back(13);
+    v.push_back(14);
+    v.push_back(15);
+    v.push_back(16);
+    v.push_back(17);
 
-    //v.Insert(1 , 3);
-    //v.Insert(2 , 65);
+    v.Insert(1 , 3);
+    v.Insert(2 , 65);
     v.Print_elements();
     
     
     cout<<"________________"<<endl;
     
-    v.Right_Rotate(4);
-
     
-    //v.Right_Rotate();
+    v.Right_Rotate(6);
+    v.Print_elements();
+    
+    cout<<"__________________"<<endl;
+    
+    v.Delete(2);
     v.Print_elements();
     
     return 0;
