@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <vector>
 using namespace std;
 
 struct Node
@@ -149,19 +149,101 @@ public:
        cout<<"swap done"<<endl;
    }
    
-   void Reverse()
+   void Swap_head_and_tail_data()
    {
-       
+       Node* tail = Get_tail();
+       int tail_data = tail->data;
+       tail->data = head->data;
+       head->data = tail_data;
    }
    
-   void delete_even_pos()
+   void Remove_last_occurance(int key)
    {
+       Node* n = head;
+       int count = 0;
+       int idx = -1;
+       int lastKeyidx = 0;
+       while(n != nullptr)
+       {
+           idx++;
+           //cout<<idx<<endl;
+           if(n->data == key)
+           {
+               count++;
+               lastKeyidx = idx;
+           }
+           n = n->next;
+       }
        
+       /*Node* t = Get_tail();
+       if (t->data == key)
+       {
+           lastKeyidx = Get_length() - 1;
+       }*/
+       if(count>1)
+       {
+           delete_at_index(lastKeyidx);
+       }
    }
    
-   void insert_sorted(int value)
+   int max()
    {
+       int max = 0;
+       Node* n = head;
+       while(n->next != nullptr)
+       {
+           if(n->data >= max)
+           {
+               max = n->data;
+           }
+           n = n->next;
+       }
+       return max;
+   }
+   
+   void Arrange_odd_even()
+   {
+       Node* n = head;
+       head = head->next;
+       Node* h = head;
+       Node* hptr = nullptr;
+       Node* nptr = nullptr;
+       //cout<<h->data<<endl;
+       //cout<<h->next<<endl;
+       while(h != nullptr)
+       {
+           //cout<<h->data<<endl;
+           
+           if(h->next == nullptr)
+           break;
+           
+           h->next = h->next->next;
+           h = h->next->next;
+           
+           hptr = h;
+           
+       }
        
+       hptr->next = n;
+       
+       cout<<"++++++++++++++"<<endl;
+        while(n != nullptr)
+       {
+           //cout<<n->data<<endl;
+           //if(n->next->next != nullptr)
+           
+           if(n->next == nullptr)
+           break;
+           
+           n->next = n->next->next;
+           n = n->next->next;
+           
+           
+           nptr = n;
+           /*if(n->next->next == nullptr)
+           break;*/
+       }
+       nptr->next = nullptr;
    }
    
    Node* Get_tail()
@@ -242,18 +324,18 @@ int main()
 {
     LinkedList l;
     
-    l.insert_end(3);
     l.insert_end(4);
-    l.insert_end(5);
-    l.insert_end(6);
     l.insert_end(7);
+    l.insert_end(7);
+    l.insert_end(7);
+    l.insert_end(10);
     l.insert_end(8);
     
     l.print();
     
     
-    l.insert_end(6);
-    l.print();
+    /*l.insert_end(6);
+    l.print();*/
     
     /*l.delete_with_value(90);
     l.print();*/
@@ -270,4 +352,30 @@ int main()
     l.Swap_pairs();
     l.print();
     
+    l.insert_end(6);
+    l.print();
+
+    l.insert_end(13);
+    l.print();
+    
+    l.insert_end(6);
+    l.print();
+    
+    /*l.insert_front(6);
+    l.print();*/
+    
+    l.insert_front(6);
+    l.print();
+    
+    l.Remove_last_occurance(7);
+    l.print();
+    
+    l.Remove_last_occurance(7);
+    //l.print();
+    
+    l.Remove_last_occurance(6);
+    l.print();
+    
+    l.Arrange_odd_even();
+    l.print();
 }
