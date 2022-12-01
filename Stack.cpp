@@ -16,13 +16,25 @@ public:
        array = new int[size];
    }
    
-   bool push(int value)
+   //push func with static array "size fixed"  
+   
+   /*bool push(int value)
    {
-       if(Isfull())
+       if(Isfull()) // 
        return false;
        
        array[++top] = value;
        return true;
+   }*/
+   
+   
+   // push func with dynamic array "expanding as needed"
+   void push(int value)
+   {
+       if(Isfull())
+       expand_array_size();
+       
+       array[++top] = value;
    }
    
    int pop()
@@ -91,13 +103,23 @@ public:
            array[idx] = temp;
            idx++;
        }
-   }
-   
-   /*int* next_greater_element()
+   }  
+private:
+   void expand_array_size()
    {
-      int* arr = new int[top+1];
+       size = size* 2;
+       
+       int* newArray = new int[size];
+       
+       for(int i = 0 ; i<size ; ++i)
+       {
+           newArray[i] = array[i];
+       }
       
-   }*/
+       swap(array, newArray);
+       
+       delete [] newArray;
+   }
 };
 
 string reverse_subwords(string line)
@@ -167,14 +189,18 @@ bool is_valid_parentheses(string paren)
 
 int main()
 {
-   Stack s(6);
+   Stack s(2);
    
    s.push(5);
    //s.push(6);
    s.push(7);
    s.push(8);
+   s.push(55);
+   s.push(56);
    //s.insert_at_bottom(2);
    //s.insert_at_bottom(1);
+   
+   s.pop();
    
    s.display();
    
@@ -184,3 +210,4 @@ int main()
    
    s.display();
 }
+
