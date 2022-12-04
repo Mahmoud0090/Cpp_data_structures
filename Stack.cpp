@@ -4,6 +4,7 @@
 #include <cstring>
 using namespace std;
 
+// array based stack
 class Stack
 {
 private:
@@ -103,7 +104,8 @@ public:
            array[idx] = temp;
            idx++;
        }
-   }  
+   }
+   
 private:
    void expand_array_size()
    {
