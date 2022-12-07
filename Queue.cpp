@@ -20,12 +20,12 @@ public:
         size = s;
         array = new int[size];
     }
+    
     int next(int pos)
     {
         //the below commented line be used instead of below lines
         //return (pos + 1) % size;
         //below lines are more faster than modules operator so used in industry
-        
         ++pos;
         if(pos == size)
         pos = 0;
@@ -33,7 +33,16 @@ public:
         return pos;
     }
     
-    void enqueue(int value)
+    int prev(int pos)
+    {
+        --pos;
+        if(pos < 0)
+        pos = size - 1;
+        
+        return pos;
+    }
+    
+    void enqueue_rear(int value)
     {
        assert(!isFull());
        array[rear] = value;
@@ -41,11 +50,28 @@ public:
        added_element++;
     }
     
-    int dequque()
+    void enqueue_front(int value)
+    {
+       assert(!isFull());
+       front = prev(front);
+       array[front] = value;
+       added_element++;
+    }
+    
+    int dequque_front()
     {
         assert(!isEmpty());
         int value = array[front];
         front = next(front);
+        --added_element;
+        return value;
+    }
+    
+    int dequeue_rear()
+    {
+        assert(!isEmpty());
+        rear = prev(rear);
+        int value = array[rear];
         --added_element;
         return value;
     }
@@ -78,19 +104,39 @@ public:
         }
         cout<<"\n\n";
     }
+    
 };
 
 int main()
 {
-   Queue q(10);
+   Queue q(4);
    
-   q.enqueue(4);
-   q.enqueue(5);
+   /*q.enqueue_rear(4);
+   q.enqueue_rear(5);
    
    q.display();
    
-   q.enqueue(6);
-   q.enqueue(7);
+   q.enqueue_rear(6);
+   q.enqueue_rear(7);
+   
+   q.display();
+   
+   q.dequque_front();
+   q.display();*/
+   
+   q.enqueue_front(9);
+   q.display();
+   
+   q.enqueue_front(3);
+   q.display();
+   
+   q.enqueue_front(6);
+   q.display();
+   
+   q.enqueue_front(8);
+   q.display();
+   
+   q.dequeue_rear();
    
    q.display();
 }
