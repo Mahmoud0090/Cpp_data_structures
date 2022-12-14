@@ -72,57 +72,52 @@ public:
 
   int height()
   {
-    BinaryTree *tree = this;
-    if (!tree)
-      return 0;
+    int res = 0;
+    if(left)
+    res = max(res , left->height());
 
-    int leftheight = tree->left->height();
-    int rightheight = tree->right->height();
+    if(right)
+    res = max(res , right->height());
 
-    return max(leftheight, rightheight) + 1;
+    return res + 1;
   }
 
   int total_nodes()
   {
-    BinaryTree *tree = this;
-    if (!tree)
-      return 0;
-    return 1 + tree->left->total_nodes() + tree->right->total_nodes();
+    int total = 0;
+    if(left)
+    total += left->total_nodes();
+
+    if(right)
+    total += right->total_nodes();
+
+    return 1 + total;
   }
 
   int leaf_nodes()
   {
-    BinaryTree *tree = this;
+    int leaf = !left && !right;
 
-    if (!tree)
-      return 0;
+    if(left)
+    leaf += left->leaf_nodes();
 
-    if (!tree->left && !tree->right)
-      return 1;
+    if(right)
+    leaf+= right->leaf_nodes();
 
-    return tree->left->leaf_nodes() + tree->right->leaf_nodes();
+    return leaf;
   }
 
   bool is_exists(int value)
   {
-    BinaryTree *tree = this;
+    bool res = data == value;
+    if(!res && left)
+    res = left->is_exists(value);
 
-    if (!tree)
-      return false;
+    if(!res && right)
+    res = right->is_exists(value);
 
-    if (tree->data == value)
-      return true;
-    // return true;
-
-    return (tree->left->is_exists(value) || tree->right->is_exists(value));
+    return res;
   }
-
-  /*bool is_perfect()
-  {
-    // recursive way
-    // formula based way
-   
-  }*/
 
 };
 int main()
@@ -133,13 +128,13 @@ int main()
   tree.add({2, 4, 8}, {'L', 'L', 'R'});
   tree.add({2, 5, 9}, {'L', 'R', 'R'});
   tree.add({3, 6, 10}, {'R', 'R', 'L'});
-  tree.add({3, 6, 11, 56}, {'R', 'R', 'R', 'R'});
+  tree.add({3, 6, 11}, {'R', 'R', 'R'});
 
   // tree.print_inorder();
 
   // int x = tree.tree_max();
 
-  bool x = tree.is_exists(7);
+  bool x = tree.is_exists(90);
 
   cout << x << endl;
 
