@@ -119,6 +119,52 @@ public:
     return res;
   }
 
+  void clear()
+  {
+    if(left)
+    {
+      delete left; // recursively delete
+      left = nullptr;
+    }
+
+    if(right)
+    {
+      delete right;
+      left = right;
+    }
+  }
+
+  ~BinaryTree()
+  {
+    clear();
+  }
+
+  void traverse_left_boundary()
+  {
+    cout<<data<<" ";
+
+    if(left)
+    {
+      left->traverse_left_boundary();
+    }
+    else if(right)
+    {
+      right->traverse_left_boundary();
+    }
+
+  }
+
+  /*int longest_path()
+  {
+
+  }*/
+
+  void print_postorder()
+  {
+
+  }
+  
+
 };
 int main()
 {
@@ -134,9 +180,7 @@ int main()
 
   // int x = tree.tree_max();
 
-  bool x = tree.is_exists(90);
-
-  cout << x << endl;
+  tree.traverse_left_boundary();
 
   return 0;
 }
